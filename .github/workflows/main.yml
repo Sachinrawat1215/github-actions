@@ -21,7 +21,7 @@ jobs:
       
       - name: List commits
         id: commits
-        run: git log --pretty=format:"%h - %an, %ar : %s" --abbrev=7
+        run: git log
       
       - name: Make API call
         run: |
