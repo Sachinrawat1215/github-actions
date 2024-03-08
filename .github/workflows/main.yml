@@ -24,7 +24,8 @@ jobs:
         run: git log
       
       - name: Log branch name and GitHub ref
-        run: echo "Branch Name: ${{ steps.branch.outputs.branch_name }}, GitHub Ref: $GITHUB_REF"
+        run: |
+          echo "Branch Name: ${{ steps.branch.outputs.branch_name }}, GitHub Ref: $GITHUB_REF"
       
       - name: Make API call
         run: |
