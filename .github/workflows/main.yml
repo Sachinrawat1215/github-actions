@@ -21,11 +21,9 @@ jobs:
       
       - name: List commits
         id: commits
-        run: git log
+        run: git log --pretty=format:"%h - %an, %ar : %s" --abbrev=7
       
       - name: Make API call
         run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -d '{"branch": "${{ steps.branch.outputs.branch_name }}", "commits": "${{ steps.commits.outputs.stdout }}" }' \
-            YOUR_API_ENDPOINT
+          response=$(curl -X GET https://jsonplaceholder.typicode.com/todos/1)
+          echo "API Response: $response"
