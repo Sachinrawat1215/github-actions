@@ -1,0 +1,28 @@
+name: Get Branch Name and Commits
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  get-branch-name-and-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Get branch name
+        id: branch
+        run: echo "::set-output name=branch_name::$(echo $GITHUB_REF | cut -d/ -f3-)"
+      
+      - name: List commits
+        id: commits
+        run: git log --pretty=format:"%h - %an, %ar : %s" --abbrev=7
+      
+      - name: Make API call
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"branch": "${{ steps.branch.outputs.branch_name }}", "commits": "${{ steps.commits.outputs.stdout }}" }' \
+            YOUR_API_ENDPOINT
