@@ -9,6 +9,9 @@ jobs:
   get-branch-name-and-commits:
     runs-on: ubuntu-latest
     steps:
+      - name: Log start of script
+        run: echo "GitHub Actions script is starting..."
+
       - name: Checkout repository
         uses: actions/checkout@v2
       
